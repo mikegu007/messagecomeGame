@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.message.game.dao.TmMessageRuleMapper">
+  <resultMap id="BaseResultMap" type="com.message.game.model.po.TmMessageRule">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="IS_SEX" jdbcType="INTEGER" property="isSex" />
+    <result column="SEX" jdbcType="INTEGER" property="sex" />
+    <result column="IS_DEL" jdbcType="INTEGER" property="isDel" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CONTENT, TYPE, NAME, IS_SEX, SEX, IS_DEL, CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tm_message_rule
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.message.game.model.po.TmMessageRule">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tm_message_rule (ID, CONTENT, TYPE, 
+      NAME, IS_SEX, SEX, IS_DEL, 
+      CREATE_DATE, UPDATE_DATE)
+    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{isSex,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.message.game.model.po.TmMessageRule">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tm_message_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ID,
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="isSex != null">
+        IS_SEX,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isSex != null">
+        #{isSex,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.message.game.model.po.TmMessageRule">
+    update tm_message_rule
+    <set>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isSex != null">
+        IS_SEX = #{isSex,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.message.game.model.po.TmMessageRule">
+    update tm_message_rule
+    set CONTENT = #{content,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      IS_SEX = #{isSex,jdbcType=INTEGER},
+      SEX = #{sex,jdbcType=INTEGER},
+      IS_DEL = #{isDel,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryMessageRuleList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM `tm_message_rule` a
+    WHERE a.`IS_DEL`=0
+    <if test="sex!=null">
+        AND a.`IS_SEX`=1 OR (a.`IS_SEX`=0 AND a.`SEX`=#{sex})
+    </if>
+  </select>
+</mapper>

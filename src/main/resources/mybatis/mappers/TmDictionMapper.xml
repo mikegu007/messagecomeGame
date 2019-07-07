@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.message.game.dao.TmDictionMapper">
+  <resultMap id="BaseResultMap" type="com.message.game.model.po.TmDiction">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="DICTION_CODE" jdbcType="VARCHAR" property="dictionCode" />
+    <result column="DICTION_TYPE" jdbcType="VARCHAR" property="dictionType" />
+    <result column="DICTION_NAME" jdbcType="VARCHAR" property="dictionName" />
+    <result column="IS_DEL" jdbcType="INTEGER" property="isDel" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DICTION_CODE, DICTION_TYPE, DICTION_NAME, IS_DEL, CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tm_diction
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.message.game.model.po.TmDiction">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tm_diction (ID, DICTION_CODE, DICTION_TYPE, 
+      DICTION_NAME, IS_DEL, CREATE_DATE, 
+      UPDATE_DATE)
+    values (#{id,jdbcType=BIGINT}, #{dictionCode,jdbcType=VARCHAR}, #{dictionType,jdbcType=VARCHAR}, 
+      #{dictionName,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.message.game.model.po.TmDiction">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tm_diction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ID,
+      <if test="dictionCode != null">
+        DICTION_CODE,
+      </if>
+      <if test="dictionType != null">
+        DICTION_TYPE,
+      </if>
+      <if test="dictionName != null">
+        DICTION_NAME,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="dictionCode != null">
+        #{dictionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionType != null">
+        #{dictionType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionName != null">
+        #{dictionName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.message.game.model.po.TmDiction">
+    update tm_diction
+    <set>
+      <if test="dictionCode != null">
+        DICTION_CODE = #{dictionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionType != null">
+        DICTION_TYPE = #{dictionType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionName != null">
+        DICTION_NAME = #{dictionName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.message.game.model.po.TmDiction">
+    update tm_diction
+    set DICTION_CODE = #{dictionCode,jdbcType=VARCHAR},
+      DICTION_TYPE = #{dictionType,jdbcType=VARCHAR},
+      DICTION_NAME = #{dictionName,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

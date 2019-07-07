@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.message.game.dao.TmGameRuleMapper">
+    <resultMap id="BaseResultMap" type="com.message.game.model.po.TmGameRule">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="DICTION_CODE" jdbcType="VARCHAR" property="dictionCode"/>
+        <result column="START_TIME" jdbcType="INTEGER" property="startTime"/>
+        <result column="END_TIME" jdbcType="INTEGER" property="endTime"/>
+        <result column="COUNT" jdbcType="INTEGER" property="count"/>
+        <result column="TIME" jdbcType="INTEGER" property="time"/>
+        <result column="MESSAGE_TYPE" jdbcType="INTEGER" property="messageType"/>
+        <result column="IS_DEL" jdbcType="INTEGER" property="isDel"/>
+        <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, DICTION_CODE, START_TIME, END_TIME, COUNT, TIME, MESSAGE_TYPE, IS_DEL, CREATE_DATE, 
+    UPDATE_DATE
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tm_game_rule
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.message.game.model.po.TmGameRule">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tm_game_rule (ID, DICTION_CODE, START_TIME,
+        END_TIME, COUNT, TIME,
+        MESSAGE_TYPE, IS_DEL, CREATE_DATE,
+        UPDATE_DATE)
+        values (#{id,jdbcType=BIGINT}, #{dictionCode,jdbcType=VARCHAR}, #{startTime,jdbcType=INTEGER},
+        #{endTime,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{time,jdbcType=INTEGER},
+        #{messageType,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},
+        #{updateDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.message.game.model.po.TmGameRule">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tm_game_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ID,
+            <if test="dictionCode != null">
+                DICTION_CODE,
+            </if>
+            <if test="startTime != null">
+                START_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="count != null">
+                COUNT,
+            </if>
+            <if test="time != null">
+                TIME,
+            </if>
+            <if test="messageType != null">
+                MESSAGE_TYPE,
+            </if>
+            <if test="isDel != null">
+                IS_DEL,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=BIGINT},
+            <if test="dictionCode != null">
+                #{dictionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=INTEGER},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=INTEGER},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=INTEGER},
+            </if>
+            <if test="messageType != null">
+                #{messageType,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.message.game.model.po.TmGameRule">
+        update tm_game_rule
+        <set>
+            <if test="dictionCode != null">
+                DICTION_CODE = #{dictionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                START_TIME = #{startTime,jdbcType=INTEGER},
+            </if>
+            <if test="endTime != null">
+                END_TIME = #{endTime,jdbcType=INTEGER},
+            </if>
+            <if test="count != null">
+                COUNT = #{count,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                TIME = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="messageType != null">
+                MESSAGE_TYPE = #{messageType,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                IS_DEL = #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.message.game.model.po.TmGameRule">
+    update tm_game_rule
+    set DICTION_CODE = #{dictionCode,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=INTEGER},
+      END_TIME = #{endTime,jdbcType=INTEGER},
+      COUNT = #{count,jdbcType=INTEGER},
+      TIME = #{time,jdbcType=INTEGER},
+      MESSAGE_TYPE = #{messageType,jdbcType=INTEGER},
+      IS_DEL = #{isDel,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="getGameRuleList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `tm_game_rule` a
+        where a.`IS_DEL`=0
+        <if test="dictionCode!=null">
+            and a.`DICTION_CODE`=#{dictionCode}
+        </if>
+    </select>
+</mapper>
