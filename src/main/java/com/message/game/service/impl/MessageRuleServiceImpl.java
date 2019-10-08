@@ -32,7 +32,7 @@ public class MessageRuleServiceImpl implements MessageRuleService {
      * @return
      */
     @Override
-    @Cacheable(value = "message:rule:list:sex",key = "'message:rule:list:sex:'+#p0")
+//    @Cacheable(value = "message:rule:list:sex",key = "'message:rule:list:sex:'+#p0")
     public List<MessageRuleVo> getMessageRuleList(String sex) {
         log.info("获取短信规则列表 性别[{}]",sex);
         List<TmMessageRule> tmMessageRuleList = tmMessageRuleMapper.queryMessageRuleList(StringUtils.isEmpty(sex)?null:sex);
