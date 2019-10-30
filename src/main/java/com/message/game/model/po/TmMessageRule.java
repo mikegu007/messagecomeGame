@@ -9,9 +9,18 @@ public class TmMessageRule {
 
     private Integer type;
 
-    private String name;
+    public Integer getTime() {
+        return time;
+    }
 
-    private Integer isSex;
+    public void setTime(Integer time) {
+        this.time = time;
+    }
+
+    private Integer time;
+
+
+    private String name;
 
     private Integer sex;
 
@@ -53,13 +62,6 @@ public class TmMessageRule {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getIsSex() {
-        return isSex;
-    }
-
-    public void setIsSex(Integer isSex) {
-        this.isSex = isSex;
-    }
 
     public Integer getSex() {
         return sex;

@@ -23,5 +23,5 @@ public interface TmMessageRuleMapper {
      * @param sex
      * @return
      */
-    List<TmMessageRule> queryMessageRuleList(@Param("sex") String sex);
+    List<TmMessageRule> queryMessageRuleList(@Param("sex") Integer sex);
 }

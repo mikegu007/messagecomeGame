@@ -28,6 +28,7 @@ public class MessageRuleVo implements Serializable{
 
     // 短信类型
     private Integer type;
+    private Integer time;
 
     // 来信人
     private String name;

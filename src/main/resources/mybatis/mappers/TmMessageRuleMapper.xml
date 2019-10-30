@@ -5,15 +5,16 @@
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="CONTENT" jdbcType="VARCHAR" property="content" />
     <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="time" jdbcType="INTEGER" property="time" />
+
     <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="IS_SEX" jdbcType="INTEGER" property="isSex" />
     <result column="SEX" jdbcType="INTEGER" property="sex" />
     <result column="IS_DEL" jdbcType="INTEGER" property="isDel" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, CONTENT, TYPE, NAME, IS_SEX, SEX, IS_DEL, CREATE_DATE, UPDATE_DATE
+    ID, CONTENT, TYPE, NAME, SEX, IS_DEL, CREATE_DATE, UPDATE_DATE,time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -26,10 +27,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into tm_message_rule (ID, CONTENT, TYPE, 
-      NAME, IS_SEX, SEX, IS_DEL, 
+      NAME,  SEX, IS_DEL,
       CREATE_DATE, UPDATE_DATE)
     values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{isSex,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER},
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.message.game.model.po.TmMessageRule">
@@ -48,9 +49,7 @@
       <if test="name != null">
         NAME,
       </if>
-      <if test="isSex != null">
-        IS_SEX,
-      </if>
+
       <if test="sex != null">
         SEX,
       </if>
@@ -74,9 +73,6 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="isSex != null">
-        #{isSex,jdbcType=INTEGER},
       </if>
       <if test="sex != null">
         #{sex,jdbcType=INTEGER},
@@ -104,9 +100,6 @@
       <if test="name != null">
         NAME = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="isSex != null">
-        IS_SEX = #{isSex,jdbcType=INTEGER},
-      </if>
       <if test="sex != null">
         SEX = #{sex,jdbcType=INTEGER},
       </if>
@@ -127,7 +120,6 @@
     set CONTENT = #{content,jdbcType=VARCHAR},
       TYPE = #{type,jdbcType=INTEGER},
       NAME = #{name,jdbcType=VARCHAR},
-      IS_SEX = #{isSex,jdbcType=INTEGER},
       SEX = #{sex,jdbcType=INTEGER},
       IS_DEL = #{isDel,jdbcType=INTEGER},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
@@ -140,7 +132,7 @@
     FROM `tm_message_rule` a
     WHERE a.`IS_DEL`=0
     <if test="sex!=null">
-        AND a.`IS_SEX`=1 OR (a.`IS_SEX`=0 AND a.`SEX`=#{sex})
+      and a.`SEX`=#{sex}
     </if>
   </select>
 </mapper>
