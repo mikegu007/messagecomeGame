@@ -1,5 +1,7 @@
 package com.message.game.service.inf;
 
+import com.message.game.model.PageBase.PageBean;
+import com.message.game.model.dto.MessageListDto;
 import com.message.game.model.vo.MessageRuleVo;
 
 import java.util.List;
@@ -11,8 +13,9 @@ public interface MessageRuleService {
 
     /**
      * 获取短信列表
-     * @param sex
+     * @param messageListDto
      * @return
      */
-    List<MessageRuleVo> getMessageRuleList(String sex);
+    PageBean<MessageRuleVo> getMessageRuleList(MessageListDto messageListDto);
+
 }
