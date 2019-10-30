@@ -13,9 +13,9 @@ public interface MessageRuleService {
 
     /**
      * 获取短信列表
-     * @param messageListDto
+     * @param sex
      * @return
      */
-    PageBean<MessageRuleVo> getMessageRuleList(MessageListDto messageListDto);
+    List<MessageRuleVo> getMessageRuleList(String sex);
 
 }

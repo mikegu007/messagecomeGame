@@ -2,13 +2,13 @@ package com.message.game.controller.base;
 
 import com.message.game.model.PageBase.PageBean;
 import com.message.game.model.dto.MessageListDto;
+import com.message.game.model.dto.ResultData;
 import com.message.game.model.vo.MessageRuleVo;
 import com.message.game.service.inf.MessageRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 短信
@@ -24,9 +24,9 @@ public class MessageRuleController {
     /**
      * 获取短信列表
      */
-    @RequestMapping(value = "/rule/list",method = RequestMethod.POST)
-    public PageBean<MessageRuleVo> getMessageRuleList(
-            @RequestBody MessageListDto messageListDto){
-        return messageRuleService.getMessageRuleList(messageListDto);
+    @RequestMapping(value = "/rule/list",method = RequestMethod.GET)
+    public ResultData<List<MessageRuleVo>> getMessageRuleList(
+            @RequestParam(name = "sex",required = false) String sex){
+        return new ResultData<>(ResultData.SUCCESS,"","",messageRuleService.getMessageRuleList(sex));
     }
 }
